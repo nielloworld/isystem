@@ -4,7 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 
-var order = require('./routes/order');
+//var order = require('./routes/order');
+const { order, equipment } = require('./routes');
 var app = express();
 
 var mongoose = require('mongoose');
