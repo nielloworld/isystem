@@ -22,7 +22,7 @@ export default class EquipmentList extends Component {
 
   render () {
     // Fetch
-    const list = this.state.map(equipment => <Equipment />);
+    const list = this.state.equipment.map(equipment => <Equipment />);
     return <Layout title="Equipment">
       {list}
     </Layout>;

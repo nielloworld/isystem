@@ -28,7 +28,7 @@ export default class OrderList extends Component {
       orderId={order.id}
     ></Order>);
     return (
-      <Layout>
+      <Layout title="Order List">
         <button onClick={(e) => this.newHandler(e)}>New</button>
         <div>{orders}</div>
       </Layout>

@@ -8,7 +8,13 @@ import React from 'react';
 const Layout = (props) => (
   <div>
     <img src="logo.png" />
-    <div>Any navbar items</div>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/equipment">Equipment</a></li>
+        <li><a href="/orders">Orders</a></li>
+      </ul>
+    </nav>
     <h1>{props.title}</h1>
     {props.children}
   </div>

@@ -7,8 +7,10 @@ export default class OrderForm extends Component {
   }
 
   render () {
-    return <Layout title="Create New Order">
-      <form></form>
-    </Layout>;
+    return (
+      <Layout title="Create New Order">
+        <form></form>
+      </Layout>
+    );
   }
 };
