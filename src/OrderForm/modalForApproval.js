@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 //import Layout from './Layout';
 import { Modal, Button, Container } from 'semantic-ui-react'
-import logo from './img/logo.png';
 
 
-export default class Home extends Component {
+export default class modalForApproval extends Component {
   constructor () {
     super();
  
@@ -13,32 +12,31 @@ export default class Home extends Component {
 
   newHandler () {
     // TODO Click behavior - move to 
-    window.location = '../orderform';
+    
+    window.location = '../orders';
   }
 
   render () {
-   
+    let open = this.props.open;
+    let toggleModal = this.props.toggleModal;
     return (
-        <body>
   <div className='App'>
     <Container>
     <div>
-    <Modal size='small' defaultOpen  closeOnDimmerClick={false}  onClose={this.close} >
+    <Modal size='small' open={open}  closeOnDimmerClick={false}  onClose={this.close} >
 
           <Modal.Content align='center'>
-          <img src={logo} className='App-logo' alt='logo'   />
-            <p >Proceed to Order?</p>
+            <p >Your order is now for approval</p>
           </Modal.Content>
           <Modal.Actions >
             <div align='center'>
-            <Button positive icon='checkmark' labelPosition='right' content='Yes' onClick={(e) => this.newHandler(e)} />
+            <Button positive icon='checkmark' labelPosition='right' content='Ok' onClick={(e) => this.newHandler(e)} />
             </div>
           </Modal.Actions>
   </Modal>
   </div>
   </Container>
   </div>
-  </body>
     )
   }
 }
