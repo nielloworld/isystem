@@ -3,3 +3,21 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.App-header {
+  background-color: #222;
+  color: #fff;
+  margin-bottom: 25px;
+  padding: 25px 25px 30px;
+  text-align: center;
+}
+
+.App-logo {
+  margin-left: auto;
+  margin-right: auto;
+  height: 100px;
+}
+
+.App-intro {
+  margin-top: 0;
+}

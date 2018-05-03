@@ -18,15 +18,20 @@ import {
 import axios from 'axios';
 
 export const GetEquipmentList = () => {
-  return axios.get(API_URL + 'equipments').then(response => response.data);
+  return axios.get(API_URL + 'equipment').then (response => {
+    
+    console.log(response.data)
+    return response.data
+  });
+  
 };
 
 export const GetOrderList = () => {
-  return axios.get(API_URL + 'orders').then(response => response.data);
+  return axios.get(API_URL + 'order').then(response => response.data);
 };
 
 export const CreateOrder = () => {
   // TODO - What data is passed here?
-  return axios.post(API_URL + 'orders', {}).then(response => response.data);
+  return axios.post(API_URL + 'order', {}).then(response => response.data);
 };
 

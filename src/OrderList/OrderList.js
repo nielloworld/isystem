@@ -21,6 +21,7 @@ export default class OrderList extends Component {
 
   newHandler () {
     // TODO Click behavior - move to 
+    window.location = '../orderform';
   }
 
   render () {
