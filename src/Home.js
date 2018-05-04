@@ -14,7 +14,8 @@ export default class Home extends Component {
   newHandler () {
     // TODO Click behavior - move to 
     window.location = '../orderform';
-  }
+// history.push('/orderform')  
+ }
 
   render () {
    

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { GetOrderList } from '../rest';
+import { GetEquipmentList } from '../rest';
 import Layout from '../Layout';
 import { Button, Checkbox, Form, Modal } from 'semantic-ui-react'
 import axios from 'axios';
@@ -16,7 +16,7 @@ export default class OrderForm extends Component {
     this.state = {
       item: '',
       quantity: '',
-      orders: [],
+      equipment: [],
       cmodalIsOpen: false,
       fmodalIsOpen: false,
       amodalIsOpen: false,
@@ -39,9 +39,9 @@ export default class OrderForm extends Component {
     });
   }
   componentDidMount () {
-    GetOrderList().then(result => {
+    GetEquipmentList().then(result => {
       this.setState({
-        orders: result
+        equipment: result
       });
     });
   }
@@ -59,12 +59,18 @@ export default class OrderForm extends Component {
     e.preventDefault();
     // get our form data out of state
     const { item, quantity } = this.state;
+console.log(item)
     var itemexist = '';
     var sufficient = false;
     var itemleft = '';
-    this.state.orders.forEach(function (oitem) {
+console.log(this.state.equipment)
+    //const orders = this.state.orders.map(order => {...order}/>);
+    this.state.equipment.forEach(function (oitem) {
       
         if (oitem.item.toLowerCase() == item.toLowerCase()){
+console.log(oitem.item)
+console.log("++++")
+console.log(item)
           itemexist = oitem.item
           itemleft = oitem.quantity
           if (Number(quantity) <= Number(oitem.quantity)){
@@ -110,6 +116,7 @@ export default class OrderForm extends Component {
   }
   render () {
     const { item, quantity } = this.state
+
     const confirmation =  <Modalconfirmation open={this.state.cmodalIsOpen} toggleModal={this.toggleModal} togglecModal={this.togglecModal} />
     const approval =  <Modalforapproval open={this.state.amodalIsopen2} toggleModal={this.toggleModal} />
     const failed = <Modalfailed open={this.state.fmodalIsOpen} message={this.state.failedmsg} toggleModal={this.toggleModal} />

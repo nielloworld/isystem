@@ -18,7 +18,7 @@
     "serve-favicon": "^2.5.0"
   },
   "scripts": {
-    "startback": "node ./bin/www",
+    "startback": "NODE_ENV=production node ./bin/www",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
