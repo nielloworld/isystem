@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Header, Icon, Container } from 'semantic-ui-react'
+import { Container } from 'semantic-ui-react'
 import logo from './img/logo.png';
 //const logo = "public/logo.png"
 const Layout = (props) => (

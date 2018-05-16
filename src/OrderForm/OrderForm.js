@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { GetOrderList } from '../rest';
+import { GetOrderList, GetEquipmentList } from '../rest';
 import Layout from '../Layout';
-import { Button, Checkbox, Form, Modal } from 'semantic-ui-react'
+import Equipment from '../EquipmentList/Equipment';
+import { Button, Form, Table } from 'semantic-ui-react'
 import axios from 'axios';
 import Modalconfirmation from './modalConfirmation';
 import Modalforapproval from './modalForApproval';
 import Modalfailed from './modalFailed';
+
 
 export default class OrderForm extends Component {
   constructor () {
@@ -13,9 +15,12 @@ export default class OrderForm extends Component {
     super();
     this.toggleModal = this.toggleModal.bind(this);
     this.togglecModal = this.togglecModal.bind(this);
+    this.togglec2Modal = this.togglec2Modal.bind(this);
     this.state = {
+      equipment: [],
       item: '',
       quantity: '',
+      status:'pending',
       orders: [],
       cmodalIsOpen: false,
       fmodalIsOpen: false,
@@ -33,15 +38,35 @@ export default class OrderForm extends Component {
     });
   }
   togglecModal() {
+    const state = this.state
+    const item = state.item
+    const quantity = state.quantity
+    const status = state.status
+    axios.post('/api/order', { item, quantity,status })
+    .then((result) => {
+      
+  });
     this.setState({
       cmodalIsOpen: false,
       amodalIsopen2: true,
+    });
+
+  }
+
+  togglec2Modal() {
+    this.setState({
+      cmodalIsOpen: false,
     });
   }
   componentDidMount () {
     GetOrderList().then(result => {
       this.setState({
         orders: result
+      });
+    });
+    GetEquipmentList().then(results => {
+      this.setState({
+        equipment: results
       });
     });
   }
@@ -54,17 +79,27 @@ export default class OrderForm extends Component {
     this.setState(state);
   }
 
- 
+  onDropdownChange = (e, data) => {
+    const state = this.state
+    state[data.name] = data.value
+  }
+
   onSubmit = (e) => {
     e.preventDefault();
     // get our form data out of state
     const { item, quantity } = this.state;
+
+    console.log(item)
+    console.log(quantity)
     var itemexist = '';
     var sufficient = false;
     var itemleft = '';
-    this.state.orders.forEach(function (oitem) {
-      
+    this.state.equipment.forEach(function (oitem) {
+    console.log(oitem)
+
         if (oitem.item.toLowerCase() == item.toLowerCase()){
+          console.log(oitem.item.toLowerCase())
+          console.log(item.toLowerCase())
           itemexist = oitem.item
           itemleft = oitem.quantity
           if (Number(quantity) <= Number(oitem.quantity)){
@@ -86,10 +121,7 @@ export default class OrderForm extends Component {
         this.setState({
           cmodalIsOpen: true
         });
-        axios.post('/api/order', { item, quantity })
-         .then((result) => {
-           
-      });
+        
       }else{
         //alert("only " + itemleft + " of "+ item + "left");
         this.setState({
@@ -110,19 +142,43 @@ export default class OrderForm extends Component {
   }
   render () {
     const { item, quantity } = this.state
-    const confirmation =  <Modalconfirmation open={this.state.cmodalIsOpen} toggleModal={this.toggleModal} togglecModal={this.togglecModal} />
+    const list = this.state.equipment.map(equipment => <Equipment key={equipment._id} {...equipment}/>);
+    const confirmation =  <Modalconfirmation open={this.state.cmodalIsOpen} toggleModal={this.toggleModal} togglecModal={this.togglecModal} togglec2Modal={this.togglec2Modal} />
     const approval =  <Modalforapproval open={this.state.amodalIsopen2} toggleModal={this.toggleModal} />
     const failed = <Modalfailed open={this.state.fmodalIsOpen} message={this.state.failedmsg} toggleModal={this.toggleModal} />
+    const equipmenttitle = [];
+    this.state.equipment.forEach(function(element){
+      
+      var equips = {key: element.item, text:element.item, value: element.item}
+      console.log(equips)
+      equipmenttitle.push(equips)
+    });
+
+    
     return (
       <Layout title="Create New Order">
       <Form unstackable onSubmit={this.onSubmit}>
         <Form.Group widths={2}>
-        <Form.Input label='Item' placeholder='Item' name="item" value={item} onChange={this.onChange} required/>
+        
+          <Form.Select fluid label='Item' name="item" options={equipmenttitle} placeholder='Item' onChange={this.onDropdownChange} required/>
           <Form.Input label='Quantity' placeholder='Quantity' type='number' name="quantity"  value={quantity} onChange={this.onChange} required />
         </Form.Group>
        
         <Button color='green' type='submit'>Submit</Button>
       </Form>
+
+        <Table celled>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell width={11}>Item name</Table.HeaderCell>
+              <Table.HeaderCell >Quantity</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+
+          <Table.Body>
+          {list}
+          </Table.Body>
+        </Table>
       {confirmation}
       {approval}
       {failed}

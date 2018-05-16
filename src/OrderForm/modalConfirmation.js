@@ -17,6 +17,7 @@ export default class modalConfirmation extends Component {
   render () {
     let open = this.props.open;
     let togglecModal = this.props.togglecModal;
+    let togglec2Modal = this.props.togglec2Modal;
     return (
   <div className='App'>
     <Container>
@@ -29,6 +30,7 @@ export default class modalConfirmation extends Component {
           <Modal.Actions >
             <div align='center'>
             <Button positive icon='checkmark' labelPosition='right' content='Yes' onClick={togglecModal} />
+            <Button negative icon='remove' labelPosition='right' content='No' onClick={togglec2Modal} />
             </div>
           </Modal.Actions>
   </Modal>

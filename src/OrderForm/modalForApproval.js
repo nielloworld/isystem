@@ -18,7 +18,6 @@ export default class modalForApproval extends Component {
 
   render () {
     let open = this.props.open;
-    let toggleModal = this.props.toggleModal;
     return (
   <div className='App'>
     <Container>

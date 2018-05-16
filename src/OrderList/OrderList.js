@@ -33,9 +33,9 @@ export default class OrderList extends Component {
       <Table celled>
     <Table.Header>
       <Table.Row>
-        <Table.HeaderCell width={11}>Job Order no.</Table.HeaderCell>
-        <Table.HeaderCell >Item</Table.HeaderCell>
-        <Table.HeaderCell >Quanity</Table.HeaderCell>
+        <Table.HeaderCell width={4}>Date</Table.HeaderCell>
+        <Table.HeaderCell width={9}>Job Order no.</Table.HeaderCell>
+        <Table.HeaderCell width={4}>Status</Table.HeaderCell>
       </Table.Row>
     </Table.Header>
 
